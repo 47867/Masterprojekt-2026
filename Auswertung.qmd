@@ -36,6 +36,9 @@ remotes::install_gitlab("gesis-appkit/appkitr")
 library(appkitr)
 library(dplyr)
 library(tidyr)
+library(labelled)
+library(psych)
+library(ggplot2)
 ```
 
 ## Data pre-processing
@@ -131,6 +134,16 @@ abend_reduced <- abend %>%
 
 ```
 
+Extract labels for later.\
+We do not really need labels but the data comes with them so we might as well keep them.
+
+```{r}
+#we only need labels for one because they are all identical
+labels_esm <- var_label(vormittag_reduced)
+
+#we do not need labels for socio because left_join keeps them
+```
+
 Merging datasets:
 
 ```{r}
@@ -150,4 +163,23 @@ merged_dataset <-bind_rows(vormittag_reduced, nachmittag_reduced, abend_reduced)
 #add socio
 merged_dataset <- merged_dataset %>% 
   left_join(socio_reduced, by = "personalParticipantCode")
+
+#add labels
+var_label(merged_dataset) <- labels_esm 
+```
+
+## Auswertung
+
+### Sozio
+
+```{r}
+psych::describe(socio_reduced)
+```
+
+```{r}
+#density distribution for age
+ggplot(socio_reduced, aes(x = s1_alter)) +
+  geom_density(fill = "lightblue", alpha = 0.5) +
+  theme_minimal()
+
 ```
