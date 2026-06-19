@@ -1,0 +1,153 @@
+---
+title: "Auswertung"
+format: html
+editor: visual
+---
+
+## Environment info
+
+Distro: Linux Fedora 43 for Workstation\
+Kernel: Linux 7.0.12-101.fc43.x86_64\
+R: 4.5.3
+
+CPU: Intel 12th Gen. Core i5-12600K (x86_64) / 16 logical cores / 4.90 GHz boost clock\
+
+## Environment variables
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = "/home/simon/Documents/Masterprojekt 2026/Datensätze/")
+
+```
+
+Compile `gesis-appkit` module from source:
+
+```{r}
+install.packages("remotes")
+
+#compile from source
+remotes::install_gitlab("gesis-appkit/appkitr")
+```
+
+```{r}
+#| echo: false
+
+#import modules
+library(appkitr)
+library(dplyr)
+library(tidyr)
+```
+
+## Data pre-processing
+
+Read files:
+
+```{r}
+#| echo: false
+#read data
+socio_raw <- read_appkit_survey("Soziodemographie/17_Juni_2026/")
+vormittag_raw <- read_appkit_survey("Vormittag/17_Juni_2026/")
+nachmittag_raw <- read_appkit_survey("Nachmittag/17_Juni_2026/")
+abend_raw <- read_appkit_survey("Abend/17_Juni_2026/")
+```
+
+Cleaning empty cases:\
+*(= surveys which have never been completed by the participant)*
+
+```{r}
+#drop na rows
+socio <- socio_raw %>% 
+  drop_na("committed")
+
+vormittag <- vormittag_raw %>% 
+  drop_na("committed")
+
+nachmittag <- nachmittag_raw %>% 
+  drop_na("committed")
+
+abend <- abend_raw %>% 
+  drop_na("committed")
+```
+
+Cleaning cases with less than 20% completion rate:
+
+```{r}
+vormittag <- vormittag %>% 
+  group_by("personalParticipantCode") %>% 
+  filter(n() > 4) %>% 
+  ungroup()
+
+nachmittag <- nachmittag %>% 
+  group_by("personalParticipantCode") %>% 
+  filter(n() > 4) %>% 
+  ungroup()
+
+abend <- abend %>% 
+  group_by("personalParticipantCode") %>% 
+  filter(n() > 4) %>% 
+  ungroup()
+```
+
+Removing unnecessary columns:
+
+```{r}
+#| echo: false
+#drop unnecessary columns
+socio_reduced <- socio_raw %>% 
+  select("personalParticipantCode", 
+         "s1_alter", 
+         "s2_geschlecht", 
+         "s3_bildung", 
+         "f1_frequenz_tiktok",
+         "f1_frequenz_instagram",
+         "f1_frequenz_youtube")
+
+vormittag_reduced <- vormittag %>% 
+  select("personalParticipantCode",
+         "f2_filter_nutzung",
+         "f3_nutzung_plattform",
+         "f4_valenz",
+         "f5_arousal",
+         starts_with("f6_habitualisiert"),
+         starts_with("f7_beduerfnis"))
+
+nachmittag_reduced <- nachmittag %>% 
+  select("personalParticipantCode",
+         "f2_filter_nutzung",
+         "f3_nutzung_plattform",
+         "f4_valenz",
+         "f5_arousal",
+         starts_with("f6_habitualisiert"),
+         starts_with("f7_beduerfnis"))
+
+abend_reduced <- abend %>% 
+  select("personalParticipantCode",
+         "f2_filter_nutzung",
+         "f3_nutzung_plattform",
+         "f4_valenz",
+         "f5_arousal",
+         starts_with("f6_habitualisiert"),
+         starts_with("f7_beduerfnis"))
+
+```
+
+Merging datasets:
+
+```{r}
+#add identifier for day of time
+vormittag_reduced <- vormittag_reduced %>% 
+  mutate(time_of_day = 1)
+
+nachmittag_reduced <- nachmittag_reduced %>% 
+  mutate(time_of_day = 2)
+
+abend_reduced <- abend_reduced %>% 
+  mutate(time_of_day = 3)
+
+#merge vormittag, nachmittag & abend
+merged_dataset <-bind_rows(vormittag_reduced, nachmittag_reduced, abend_reduced)
+
+#add socio
+merged_dataset <- merged_dataset %>% 
+  left_join(socio_reduced, by = "personalParticipantCode")
+```
