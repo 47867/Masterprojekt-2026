@@ -261,3 +261,25 @@ model_h1 <- lmer(
 
 summary(model_h1)
 ```
+
+```{r}
+#h2a & h3a
+model_valence <- lmer(
+  f4_valenz ~ index_beduerfnis + index_habit +
+    (1 | personalParticipantCode),
+  data = merged_dataset
+)
+
+summary(model_valence)
+```
+
+```{r}
+#h2b & h3b
+model_arousal <- lmer(
+  f5_arousal ~ index_beduerfnis + index_habit +
+    (1 | personalParticipantCode),
+  data = merged_dataset
+)
+
+summary(model_arousal)
+```
