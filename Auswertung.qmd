@@ -12,7 +12,7 @@ R: 4.5.3
 
 CPU: Intel 12th Gen. Core i5-12600K (x86_64) / 16 logical cores / 4.90 GHz boost clock\
 
-## Environment variables
+## Environment Variablen
 
 ```{r setup, include=FALSE, echo=FALSE}
 require("knitr")
@@ -20,7 +20,7 @@ opts_knit$set(root.dir = "/home/simon/Documents/Masterprojekt 2026/Datensätze/"
 
 ```
 
-Compile `gesis-appkit` module from source:
+Koimpiliere `gesis-appkit` modul aus source:
 
 ```{r}
 install.packages("remotes")
@@ -39,23 +39,28 @@ library(tidyr)
 library(labelled)
 library(psych)
 library(ggplot2)
+library(lme4)
+library(lmerTest)
 ```
 
-## Data pre-processing
+## Daten pre-processing
 
-Read files:
+Lese Dateien:
 
 ```{r}
 #| echo: false
-#read data
+
+#read and label data
 socio_raw <- read_appkit_survey("Soziodemographie/17_Juni_2026/")
 vormittag_raw <- read_appkit_survey("Vormittag/17_Juni_2026/")
 nachmittag_raw <- read_appkit_survey("Nachmittag/17_Juni_2026/")
 abend_raw <- read_appkit_survey("Abend/17_Juni_2026/")
 ```
 
-Cleaning empty cases:\
-*(= surveys which have never been completed by the participant)*
+### Cleaning
+
+Entferne leere Fälle:\
+*(= Befragungen, die vom Befragten nie abgegeben wurden)*
 
 ```{r}
 #drop na rows
@@ -72,7 +77,7 @@ abend <- abend_raw %>%
   drop_na("committed")
 ```
 
-Cleaning cases with less than 20% completion rate:
+Entferne Fälle mit weniger als 20% Ausfüllrate:
 
 ```{r}
 vormittag <- vormittag %>% 
@@ -91,11 +96,24 @@ abend <- abend %>%
   ungroup()
 ```
 
-Removing unnecessary columns:
+Entferne Fälle mit f2_filter_nutzung == False:
+
+```{r}
+vormittag <- vormittag %>% 
+  filter(f2_filter_nutzung == TRUE) 
+
+nachmittag <- nachmittag %>% 
+  filter(f2_filter_nutzung == TRUE) 
+
+abend <- abend %>% 
+  filter(f2_filter_nutzung == TRUE) 
+```
+
+Entferne nicht benötigte Spalten:
 
 ```{r}
 #| echo: false
-#drop unnecessary columns
+
 socio_reduced <- socio_raw %>% 
   select("personalParticipantCode", 
          "s1_alter", 
@@ -134,20 +152,23 @@ abend_reduced <- abend %>%
 
 ```
 
-Extract labels for later.\
-We do not really need labels but the data comes with them so we might as well keep them.
+### Merging
+
+Extrahiere Label für später.
+
+Eigentlich brauchen wir keine Label, aber der Datenssatz enthält sie, also können wir sie auch genauso gut behalten
 
 ```{r}
-#we only need labels for one because they are all identical
+#wir brqauchen die Labels nur aus einer Befragung, weil alle gleich sind
 labels_esm <- var_label(vormittag_reduced)
 
-#we do not need labels for socio because left_join keeps them
+#Wir brqauchen keine Label für Sozio, weil left_join sie behält
 ```
 
-Merging datasets:
+Datensätze zusammenfügen:
 
 ```{r}
-#add identifier for day of time
+#id für Tageszeit
 vormittag_reduced <- vormittag_reduced %>% 
   mutate(time_of_day = 1)
 
@@ -157,15 +178,47 @@ nachmittag_reduced <- nachmittag_reduced %>%
 abend_reduced <- abend_reduced %>% 
   mutate(time_of_day = 3)
 
-#merge vormittag, nachmittag & abend
+#ESM-Teile zusammenfügen
 merged_dataset <-bind_rows(vormittag_reduced, nachmittag_reduced, abend_reduced)
 
-#add socio
+#Sozio hinzufügen
 merged_dataset <- merged_dataset %>% 
   left_join(socio_reduced, by = "personalParticipantCode")
 
-#add labels
+#Labels hinzufügen
 var_label(merged_dataset) <- labels_esm 
+```
+
+### Indices
+
+Wir haben zwei Indices für Habitualisierung und Bedürfnisorientierung.
+
+```{r}
+#index habit
+merged_dataset <- merged_dataset %>% 
+  mutate(
+    index_habit = rowMeans(
+      across(
+        starts_with(
+          "f6_habit"
+        )
+      ),
+      na.rm = TRUE
+    )
+  )
+
+#index bedürfnis
+merged_dataset <- merged_dataset %>% 
+  mutate(
+    index_beduerfnis = rowMeans(
+      across(
+        starts_with(
+          "f7_beduerfnis"
+        )
+      ),
+      na.rm = TRUE
+    )
+  )
 ```
 
 ## Auswertung
@@ -177,9 +230,34 @@ psych::describe(socio_reduced)
 ```
 
 ```{r}
-#density distribution for age
+#Dichteverteilung für Alter
 ggplot(socio_reduced, aes(x = s1_alter)) +
   geom_density(fill = "lightblue", alpha = 0.5) +
   theme_minimal()
 
+```
+
+```{r}
+
+```
+
+### Modelle
+
+```{r}
+#erstelle variable lag
+merged_dataset <- merged_dataset %>%
+  arrange(personalParticipantCode, time_of_day) %>%
+  group_by(personalParticipantCode) %>%
+  mutate(
+    habit_lag = lag(index_habit)
+  ) %>%
+  ungroup()
+
+#rechne Modell für H1
+model_h1 <- lmer(
+  index_habit ~ habit_lag + index_beduerfnis + (1 | personalParticipantCode),
+  data = merged_dataset
+)
+
+summary(model_h1)
 ```
