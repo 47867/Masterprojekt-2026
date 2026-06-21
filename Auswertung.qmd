@@ -20,18 +20,16 @@ opts_knit$set(root.dir = "/home/simon/Documents/Masterprojekt 2026/Datensätze/"
 
 ```
 
-Koimpiliere `gesis-appkit` modul aus source:
+Kompiliere `gesis-appkit` modul aus source:
 
 ```{r}
-install.packages("remotes")
+#install.packages("remotes")
 
 #compile from source
-remotes::install_gitlab("gesis-appkit/appkitr")
+#remotes::install_gitlab("gesis-appkit/appkitr")
 ```
 
 ```{r}
-#| echo: false
-
 #import modules
 library(appkitr)
 library(dplyr)
@@ -41,6 +39,7 @@ library(psych)
 library(ggplot2)
 library(lme4)
 library(lmerTest)
+library(performance)
 ```
 
 ## Daten pre-processing
@@ -48,7 +47,6 @@ library(lmerTest)
 Lese Dateien:
 
 ```{r}
-#| echo: false
 
 #read and label data
 socio_raw <- read_appkit_survey("Soziodemographie/17_Juni_2026/")
@@ -112,7 +110,6 @@ abend <- abend %>%
 Entferne nicht benötigte Spalten:
 
 ```{r}
-#| echo: false
 
 socio_reduced <- socio_raw %>% 
   select("personalParticipantCode", 
@@ -243,6 +240,8 @@ ggplot(socio_reduced, aes(x = s1_alter)) +
 
 ### Modelle
 
+#### H1
+
 ```{r}
 #erstelle variable lag
 merged_dataset <- merged_dataset %>%
@@ -260,7 +259,14 @@ model_h1 <- lmer(
 )
 
 summary(model_h1)
+
+#R-Quadrat
+r2(model_h1)
 ```
+
+**Kurzinterpretation:** Für H1 erwarten wir $\beta$ `habit_lag` \> 0 und p \< .05. Das ist erfüllt, daher können wir H1 annehmen.
+
+#### H2a & H3a
 
 ```{r}
 #h2a & h3a
@@ -271,7 +277,14 @@ model_valence <- lmer(
 )
 
 summary(model_valence)
+
+#R-Quadrat
+r2(model_valence)
 ```
+
+**Kurzinterpretation:** Für H2a erwarten wir $\beta$ `index_beduerfnis` \> 0. Das ist erfüllt, aber nicht statistisch signifikant. Für H3a erwarten wir $\beta$ `index_habit` \< 0. Das ist erfüllt und auch signifikant.
+
+#### H2b & H3b
 
 ```{r}
 #h2b & h3b
@@ -282,4 +295,9 @@ model_arousal <- lmer(
 )
 
 summary(model_arousal)
+
+#R-Quadrat
+r2(model_arousal)
 ```
+
+**Kurzinterpretation:** Für H2b erwarten wir $\beta$ `index_beduerfnis` \> 0. Das ist erfüllt, aber nicht statistisch signifikant. Für H3b erwarten wir $\beta$ `index_habit` \< 0. Das ist erfüllt und auch signifikant.
