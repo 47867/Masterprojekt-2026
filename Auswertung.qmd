@@ -31,15 +31,20 @@ Kompiliere `gesis-appkit` modul aus source:
 
 ```{r}
 #import modules
-library(appkitr)
-library(dplyr)
-library(tidyr)
-library(labelled)
-library(psych)
-library(ggplot2)
-library(lme4)
-library(lmerTest)
-library(performance)
+library(pacman)
+
+pacman::p_load(
+  appkitr,
+  dplyr,
+  tidyr,
+  labelled,
+  psych,
+  ggplot2,
+  lme4,
+  lmerTest,
+  performance,
+  lubridate
+)
 ```
 
 ## Daten pre-processing
@@ -48,11 +53,116 @@ Lese Dateien:
 
 ```{r}
 
-#read and label data
-socio_raw <- read_appkit_survey("Soziodemographie/17_Juni_2026/")
-vormittag_raw <- read_appkit_survey("Vormittag/17_Juni_2026/")
-nachmittag_raw <- read_appkit_survey("Nachmittag/17_Juni_2026/")
-abend_raw <- read_appkit_survey("Abend/17_Juni_2026/")
+#lese datensatz
+socio_raw <- read_appkit_survey("Soziodemographie/24_Juni_2026/")
+vormittag_raw <- read_appkit_survey("Vormittag/24_Juni_2026/")
+nachmittag_raw <- read_appkit_survey("Nachmittag/24_Juni_2026/")
+abend_raw <- read_appkit_survey("Abend/24_Juni_2026/")
+```
+
+Um später die Reihenfolge der einzelnen Befragungen eindeutig bestimmen zu können, berechnen wir eine `reihenfolge_id`. Diese ID wird anhand der Abbildung *f* beschrieben, die ein *x* und ein *a* innerhalb der natürlichen Zahlen abbildet. Dabei ist *x* der Tag und *a* die Tageszeit.
+
+$$f: \mathbb{N} \to \mathbb{N}, x, a \mapsto (x - 1) \times 3 + a \forall x \in [1;7] \land a \in [1;3]$$
+
+```{r}
+#erstelle occasion_id
+
+
+#vormittag
+vormittag_raw <- vormittag_raw %>%
+  mutate(
+    scheduled_converted = ymd_hms(scheduled)
+  )
+
+vormittag_raw <- vormittag_raw %>%
+  group_by(personalParticipantCode) %>%
+  mutate(
+    studientag = as.integer(
+      as.Date(
+        scheduled_converted
+        ) - min(
+          as.Date(
+            scheduled_converted
+            )
+          )
+      ) + 1
+    
+  ) %>%
+  ungroup()
+
+
+#nachmittag
+nachmittag_raw <- nachmittag_raw %>%
+  mutate(
+    scheduled_converted = ymd_hms(scheduled)
+  )
+
+nachmittag_raw <- nachmittag_raw %>%
+  group_by(personalParticipantCode) %>%
+  mutate(
+    studientag = as.integer(
+      as.Date(
+        scheduled_converted
+      ) - min(
+        as.Date(
+          scheduled_converted
+        )
+      )
+    ) + 1
+    
+  ) %>%
+  ungroup()
+
+
+#abend
+abend_raw <- abend_raw %>%
+  mutate(
+    scheduled_converted = ymd_hms(scheduled)
+  )
+
+abend_raw <- abend_raw %>%
+  group_by(personalParticipantCode) %>%
+  mutate(
+    studientag = as.integer(
+      as.Date(
+        scheduled_converted
+      ) - min(
+        as.Date(
+          scheduled_converted
+        )
+      )
+    ) + 1
+    
+  ) %>%
+  ungroup()
+
+
+#id für Tageszeit
+vormittag_raw <- vormittag_raw %>% 
+  mutate(tageszeit = 1)
+
+nachmittag_raw <- nachmittag_raw %>% 
+  mutate(tageszeit = 2)
+
+abend_raw <- abend_raw %>% 
+  mutate(tageszeit = 3)
+
+
+#erstelle occasion_id
+vormittag_raw <- vormittag_raw %>%
+  mutate(
+    reihenfolge_id = (studientag - 1) * 3 + 1
+  )
+
+nachmittag_raw <- nachmittag_raw %>%
+  mutate(
+    reihenfolge_id = (studientag - 1) * 3 + 2
+  )
+
+abend_raw <- abend_raw %>%
+  mutate(
+    reihenfolge_id = (studientag - 1) * 3 + 3
+  )
 ```
 
 ### Cleaning
@@ -118,7 +228,8 @@ socio_reduced <- socio_raw %>%
          "s3_bildung", 
          "f1_frequenz_tiktok",
          "f1_frequenz_instagram",
-         "f1_frequenz_youtube")
+         "f1_frequenz_youtube"
+         )
 
 vormittag_reduced <- vormittag %>% 
   select("personalParticipantCode",
@@ -127,7 +238,9 @@ vormittag_reduced <- vormittag %>%
          "f4_valenz",
          "f5_arousal",
          starts_with("f6_habitualisiert"),
-         starts_with("f7_beduerfnis"))
+         starts_with("f7_beduerfnis"),
+         "reihenfolge_id"
+         )
 
 nachmittag_reduced <- nachmittag %>% 
   select("personalParticipantCode",
@@ -136,7 +249,9 @@ nachmittag_reduced <- nachmittag %>%
          "f4_valenz",
          "f5_arousal",
          starts_with("f6_habitualisiert"),
-         starts_with("f7_beduerfnis"))
+         starts_with("f7_beduerfnis"),
+         "reihenfolge_id"
+         )
 
 abend_reduced <- abend %>% 
   select("personalParticipantCode",
@@ -145,7 +260,9 @@ abend_reduced <- abend %>%
          "f4_valenz",
          "f5_arousal",
          starts_with("f6_habitualisiert"),
-         starts_with("f7_beduerfnis"))
+         starts_with("f7_beduerfnis"),
+         "reihenfolge_id"
+         )
 
 ```
 
@@ -165,16 +282,6 @@ labels_esm <- var_label(vormittag_reduced)
 Datensätze zusammenfügen:
 
 ```{r}
-#id für Tageszeit
-vormittag_reduced <- vormittag_reduced %>% 
-  mutate(time_of_day = 1)
-
-nachmittag_reduced <- nachmittag_reduced %>% 
-  mutate(time_of_day = 2)
-
-abend_reduced <- abend_reduced %>% 
-  mutate(time_of_day = 3)
-
 #ESM-Teile zusammenfügen
 merged_dataset <-bind_rows(vormittag_reduced, nachmittag_reduced, abend_reduced)
 
@@ -223,12 +330,21 @@ merged_dataset <- merged_dataset %>%
 ### Sozio
 
 ```{r}
-psych::describe(socio_reduced)
+merged_socio <- merged_dataset %>%
+  select(personalParticipantCode, 
+         s1_alter, 
+         s2_geschlecht, 
+         s3_bildung
+         ) %>%
+  
+  distinct(personalParticipantCode, .keep_all = TRUE)
+
+psych::describe(merged_socio)
 ```
 
 ```{r}
 #Dichteverteilung für Alter
-ggplot(socio_reduced, aes(x = s1_alter)) +
+ggplot(merged_socio, aes(x = s1_alter)) +
   geom_density(fill = "lightblue", alpha = 0.5) +
   theme_minimal()
 
@@ -245,10 +361,14 @@ ggplot(socio_reduced, aes(x = s1_alter)) +
 ```{r}
 #erstelle variable lag
 merged_dataset <- merged_dataset %>%
-  arrange(personalParticipantCode, time_of_day) %>%
+  arrange(personalParticipantCode, reihenfolge_id) %>%
   group_by(personalParticipantCode) %>%
   mutate(
-    habit_lag = lag(index_habit)
+    habit_lag = if_else(
+      reihenfolge_id - lag(reihenfolge_id) == 1,
+      lag(index_habit),
+      NA_real_
+    )
   ) %>%
   ungroup()
 
