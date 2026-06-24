@@ -273,10 +273,10 @@ Extrahiere Label für später.
 Eigentlich brauchen wir keine Label, aber der Datenssatz enthält sie, also können wir sie auch genauso gut behalten
 
 ```{r}
-#wir brqauchen die Labels nur aus einer Befragung, weil alle gleich sind
+#wir brauchen die Labels nur aus einer Befragung, weil alle gleich sind
 labels_esm <- var_label(vormittag_reduced)
 
-#Wir brqauchen keine Label für Sozio, weil left_join sie behält
+#Wir brauchen keine Label für Sozio, weil left_join sie behält
 ```
 
 Datensätze zusammenfügen:
@@ -356,7 +356,7 @@ ggplot(merged_socio, aes(x = s1_alter)) +
 
 ### Modelle
 
-#### H1
+#### H1​
 
 ```{r}
 #erstelle variable lag
@@ -421,3 +421,146 @@ r2(model_arousal)
 ```
 
 **Kurzinterpretation:** Für H2b erwarten wir $\beta$ `index_beduerfnis` \> 0. Das ist erfüllt, aber nicht statistisch signifikant. Für H3b erwarten wir $\beta$ `index_habit` \< 0. Das ist erfüllt und auch signifikant.
+
+### Modelle auf Plattformebene
+
+#### Instagram
+
+```{r}
+#filtere datensatz
+dataset_instagram <- merged_dataset %>% 
+  filter(f3_nutzung_plattform == 'Instagram (sog. "Reels")')
+
+#rechne Modell für H1
+model_h1_instagram <- lmer(
+  index_habit ~ habit_lag + index_beduerfnis + (1 | personalParticipantCode),
+  data = dataset_instagram
+)
+
+summary(model_h1_instagram)
+
+#R-Quadrat
+r2(model_h1_instagram)
+```
+
+```{r}
+#h2a & h3a
+model_valence_instagram <- lmer(
+  f4_valenz ~ index_beduerfnis + index_habit +
+    (1 | personalParticipantCode),
+  data = dataset_instagram
+)
+
+summary(model_valence_instagram)
+
+#R-Quadrat
+r2(model_valence_instagram)
+```
+
+```{r}
+#h2b & h3b
+model_arousal_instagram <- lmer(
+  f5_arousal ~ index_beduerfnis + index_habit +
+    (1 | personalParticipantCode),
+  data = dataset_instagram
+)
+
+summary(model_arousal_instagram)
+
+#R-Quadrat
+r2(model_arousal_instagram)
+```
+
+#### YouTube
+
+```{r}
+#filtere datensatz
+dataset_youtube <- merged_dataset %>% 
+  filter(f3_nutzung_plattform == 'YouTube (sog. "Shorts")')
+
+#rechne Modell für H1
+model_h1_youtube <- lmer(
+  index_habit ~ habit_lag + index_beduerfnis + (1 | personalParticipantCode),
+  data = dataset_youtube
+)
+
+summary(model_h1_youtube)
+
+#R-Quadrat
+r2(model_h1_youtube)
+```
+
+```{r}
+#h2a & h3a
+model_valence_youtube <- lmer(
+  f4_valenz ~ index_beduerfnis + index_habit +
+    (1 | personalParticipantCode),
+  data = dataset_youtube
+)
+
+summary(model_valence_youtube)
+
+#R-Quadrat
+r2(model_valence_youtube)
+```
+
+```{r}
+#h2b & h3b
+model_arousal_youtube <- lmer(
+  f5_arousal ~ index_beduerfnis + index_habit +
+    (1 | personalParticipantCode),
+  data = dataset_youtube
+)
+
+summary(model_arousal_youtube)
+
+#R-Quadrat
+r2(model_arousal_youtube)
+```
+
+#### TikTok
+
+```{r}
+#filtere datensatz
+dataset_tiktok <- merged_dataset %>% 
+  filter(f3_nutzung_plattform == 'TikTok')
+
+#rechne Modell für H1
+model_h1_tiktok <- lmer(
+  index_habit ~ habit_lag + index_beduerfnis + (1 | personalParticipantCode),
+  data = dataset_tiktok
+)
+
+summary(model_h1_tiktok)
+
+#R-Quadrat
+r2(model_h1_tiktok)
+```
+
+```{r}
+#h2a & h3a
+model_valence_tiktok <- lmer(
+  f4_valenz ~ index_beduerfnis + index_habit +
+    (1 | personalParticipantCode),
+  data = dataset_tiktok
+)
+
+summary(model_valence_tiktok)
+
+#R-Quadrat
+r2(model_valence_tiktok)
+```
+
+```{r}
+#h2b & h3b
+model_arousal_tiktok <- lmer(
+  f5_arousal ~ index_beduerfnis + index_habit +
+    (1 | personalParticipantCode),
+  data = dataset_tiktok
+)
+
+summary(model_arousal_tiktok)
+
+#R-Quadrat
+r2(model_arousal_tiktok)
+```
