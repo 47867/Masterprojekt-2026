@@ -422,6 +422,187 @@ R: 4.5.3</p>
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Berechne Cronbach’s Alpha:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cronbach_habit <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    merged_dataset,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">starts_with</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"f6_habit"</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>cronbach_beduerfnis <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    merged_dataset,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">starts_with</span>(</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>      <span class="st">"f7_beduerfnis"</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in psych::alpha(select(merged_dataset, starts_with("f7_beduerfnis"))): Some items were negatively correlated with the first principal component and probably 
+should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Some items ( f7_beduerfnis_unterhaltung ) were negatively correlated with the first principal component and 
+probably should be reversed.  
+To do this, run the function again with the 'check.keys=TRUE' option</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cronbach_habit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Reliability analysis   
+Call: psych::alpha(x = select(merged_dataset, starts_with("f6_habit")))
+
+  raw_alpha std.alpha G6(smc) average_r S/N  ase mean  sd median_r
+      0.66      0.66    0.62      0.33 1.9 0.03  4.2 1.3     0.32
+
+    95% confidence boundaries 
+         lower alpha upper
+Feldt      0.6  0.66  0.72
+Duhachek   0.6  0.66  0.72
+
+ Reliability if an item is dropped:
+                                 raw_alpha std.alpha G6(smc) average_r S/N
+f6_habitualisiert_awareness           0.57      0.57    0.51      0.30 1.3
+f6_habitualisiert_controlability      0.53      0.53    0.45      0.27 1.1
+f6_habitualisiert_intentionality      0.65      0.65    0.57      0.38 1.9
+f6_habitualisiert_attention           0.61      0.61    0.51      0.34 1.6
+                                 alpha se  var.r med.r
+f6_habitualisiert_awareness         0.040 0.0346  0.28
+f6_habitualisiert_controlability    0.045 0.0179  0.30
+f6_habitualisiert_intentionality    0.033 0.0112  0.35
+f6_habitualisiert_attention         0.037 0.0034  0.35
+
+ Item statistics 
+                                   n raw.r std.r r.cor r.drop mean  sd
+f6_habitualisiert_awareness      334  0.73  0.73  0.58   0.47  4.3 1.9
+f6_habitualisiert_controlability 334  0.77  0.76  0.65   0.53  3.9 2.0
+f6_habitualisiert_intentionality 334  0.62  0.64  0.45   0.35  5.3 1.7
+f6_habitualisiert_attention      334  0.70  0.69  0.54   0.42  3.2 2.0
+
+Non missing response frequency for each item
+                                    1    2    3    4    5    6    7 miss
+f6_habitualisiert_awareness      0.14 0.09 0.09 0.15 0.19 0.23 0.11    0
+f6_habitualisiert_controlability 0.16 0.13 0.14 0.13 0.18 0.13 0.12    0
+f6_habitualisiert_intentionality 0.07 0.04 0.03 0.13 0.12 0.34 0.28    0
+f6_habitualisiert_attention      0.30 0.14 0.12 0.14 0.14 0.12 0.05    0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cronbach_beduerfnis</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Reliability analysis   
+Call: psych::alpha(x = select(merged_dataset, starts_with("f7_beduerfnis")))
+
+  raw_alpha std.alpha G6(smc) average_r  S/N   ase mean sd median_r
+      0.41       0.4    0.41      0.14 0.66 0.051    3  1     0.11
+
+    95% confidence boundaries 
+         lower alpha upper
+Feldt     0.30  0.41  0.51
+Duhachek  0.31  0.41  0.51
+
+ Reliability if an item is dropped:
+                             raw_alpha std.alpha G6(smc) average_r  S/N
+f7_beduerfnis_information         0.16      0.17    0.20     0.063 0.20
+f7_beduerfnis_sozial              0.11      0.11    0.12     0.040 0.13
+f7_beduerfnis_selbstausdruck      0.30      0.27    0.29     0.111 0.37
+f7_beduerfnis_unterhaltung        0.62      0.62    0.53     0.349 1.61
+                             alpha se  var.r  med.r
+f7_beduerfnis_information       0.078 0.0736 -0.083
+f7_beduerfnis_sozial            0.083 0.0319 -0.016
+f7_beduerfnis_selbstausdruck    0.065 0.0783 -0.016
+f7_beduerfnis_unterhaltung      0.035 0.0097  0.376
+
+ Item statistics 
+                               n raw.r std.r r.cor r.drop mean  sd
+f7_beduerfnis_information    334  0.72  0.69  0.56  0.373  2.6 1.8
+f7_beduerfnis_sozial         334  0.76  0.72  0.65  0.397  2.7 2.0
+f7_beduerfnis_selbstausdruck 334  0.57  0.63  0.44  0.286  1.7 1.4
+f7_beduerfnis_unterhaltung   334  0.32  0.33 -0.12 -0.085  4.9 1.7
+
+Non missing response frequency for each item
+                                1    2    3    4    5    6    7 miss
+f7_beduerfnis_information    0.47 0.11 0.05 0.14 0.16 0.05 0.01    0
+f7_beduerfnis_sozial         0.46 0.11 0.07 0.10 0.13 0.09 0.03    0
+f7_beduerfnis_selbstausdruck 0.71 0.13 0.05 0.06 0.02 0.03 0.01    0
+f7_beduerfnis_unterhaltung   0.06 0.05 0.06 0.16 0.25 0.26 0.16    0</code></pre>
+</div>
+</div>
+<p>Entferne f6_unterhaltung aus dem Index um interne Konsistenz zu erhöhen:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#index bedürfnis reduziert</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">index_beduerfnis =</span> <span class="fu">rowMeans</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">across</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">all_of</span>(</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">c</span>(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"f7_beduerfnis_information"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"f7_beduerfnis_sozial"</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"f7_beduerfnis_selbstausdruck"</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#berechne cronbach's alpha erneut um sicher zu gehen</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>cronbach_beduerfnis_reduziert <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    merged_dataset,</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">all_of</span>(</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"f7_beduerfnis_information"</span>,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">"f7_beduerfnis_sozial"</span>,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">"f7_beduerfnis_selbstausdruck"</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>cronbach_beduerfnis_reduziert</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Reliability analysis   
+Call: psych::alpha(x = select(merged_dataset, all_of(c("f7_beduerfnis_information", 
+    "f7_beduerfnis_sozial", "f7_beduerfnis_selbstausdruck"))))
+
+  raw_alpha std.alpha G6(smc) average_r S/N   ase mean  sd median_r
+      0.62      0.62    0.53      0.35 1.6 0.035  2.3 1.3     0.38
+
+    95% confidence boundaries 
+         lower alpha upper
+Feldt     0.54  0.62  0.68
+Duhachek  0.55  0.62  0.68
+
+ Reliability if an item is dropped:
+                             raw_alpha std.alpha G6(smc) average_r  S/N
+f7_beduerfnis_information         0.52      0.55    0.38      0.38 1.21
+f7_beduerfnis_sozial              0.37      0.39    0.24      0.24 0.63
+f7_beduerfnis_selbstausdruck      0.60      0.60    0.43      0.43 1.52
+                             alpha se var.r med.r
+f7_beduerfnis_information       0.049    NA  0.38
+f7_beduerfnis_sozial            0.065    NA  0.24
+f7_beduerfnis_selbstausdruck    0.043    NA  0.43
+
+ Item statistics 
+                               n raw.r std.r r.cor r.drop mean  sd
+f7_beduerfnis_information    334  0.77  0.74  0.53   0.42  2.6 1.8
+f7_beduerfnis_sozial         334  0.83  0.80  0.65   0.51  2.7 2.0
+f7_beduerfnis_selbstausdruck 334  0.65  0.72  0.47   0.37  1.7 1.4
+
+Non missing response frequency for each item
+                                1    2    3    4    5    6    7 miss
+f7_beduerfnis_information    0.47 0.11 0.05 0.14 0.16 0.05 0.01    0
+f7_beduerfnis_sozial         0.46 0.11 0.07 0.10 0.13 0.09 0.03    0
+f7_beduerfnis_selbstausdruck 0.71 0.13 0.05 0.06 0.02 0.03 0.01    0</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="auswertung" class="level2">
@@ -429,16 +610,16 @@ R: 4.5.3</p>
 <section id="sozio" class="level3">
 <h3 class="anchored" data-anchor-id="sozio">Sozio</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>merged_socio <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(personalParticipantCode, </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         s1_alter, </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         s2_geschlecht, </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         s3_bildung</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(personalParticipantCode, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(merged_socio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>merged_socio <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(personalParticipantCode, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>         s1_alter, </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>         s2_geschlecht, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>         s3_bildung</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(personalParticipantCode, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(merged_socio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                         vars  n  mean    sd median trimmed   mad min max range
 personalParticipantCode*    1 41 21.00 11.98     21   21.00 14.83   1  41    40
@@ -453,14 +634,14 @@ s3_bildung*              -0.64    -1.21 0.17</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Dichteverteilung für Alter</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(merged_socio, <span class="fu">aes</span>(<span class="at">x =</span> s1_alter)) <span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Dichteverteilung für Alter</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(merged_socio, <span class="fu">aes</span>(<span class="at">x =</span> s1_alter)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Auswertung_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Auswertung_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -471,26 +652,26 @@ s3_bildung*              -0.64    -1.21 0.17</code></pre>
 <section id="h1" class="level4">
 <h4 class="anchored" data-anchor-id="h1">H1​</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#erstelle variable lag</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(personalParticipantCode, reihenfolge_id) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(personalParticipantCode) <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">habit_lag =</span> <span class="fu">if_else</span>(</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      reihenfolge_id <span class="sc">-</span> <span class="fu">lag</span>(reihenfolge_id) <span class="sc">==</span> <span class="dv">1</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">lag</span>(index_habit),</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>      <span class="cn">NA_real_</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#rechne Modell für H1</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>model_h1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  index_habit <span class="sc">~</span> habit_lag <span class="sc">+</span> index_beduerfnis <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> merged_dataset</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_h1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#erstelle variable lag</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>merged_dataset <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(personalParticipantCode, reihenfolge_id) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(personalParticipantCode) <span class="sc">%&gt;%</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">habit_lag =</span> <span class="fu">if_else</span>(</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>      reihenfolge_id <span class="sc">-</span> <span class="fu">lag</span>(reihenfolge_id) <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">lag</span>(index_habit),</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>      <span class="cn">NA_real_</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">#rechne Modell für H1</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>model_h1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  index_habit <span class="sc">~</span> habit_lag <span class="sc">+</span> index_beduerfnis <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> merged_dataset</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_h1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -501,35 +682,35 @@ index_habit ~ habit_lag + index_beduerfnis + (1 | personalParticipantCode)
 REML criterion at convergence: 559.6
 
 Scaled residuals: 
-     Min       1Q   Median       3Q      Max 
--2.68655 -0.56500 -0.00335  0.51625  2.63567 
+    Min      1Q  Median      3Q     Max 
+-2.9466 -0.5880  0.0048  0.5350  2.5845 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.6524   0.8077  
- Residual                            1.0434   1.0215  
+ personalParticipantCode (Intercept) 0.7523   0.8673  
+ Residual                            1.0200   1.0100  
 Number of obs: 178, groups:  personalParticipantCode, 33
 
 Fixed effects:
-                 Estimate Std. Error       df t value Pr(&gt;|t|)    
-(Intercept)        4.4837     0.4796 141.1143   9.349  &lt; 2e-16 ***
-habit_lag          0.1419     0.0716 170.9858   1.982 0.049077 *  
-index_beduerfnis  -0.3979     0.1140 133.4268  -3.492 0.000652 ***
+                  Estimate Std. Error        df t value Pr(&gt;|t|)    
+(Intercept)        4.07667    0.39887 135.96719  10.221  &lt; 2e-16 ***
+habit_lag          0.14742    0.07142 168.81157   2.064 0.040530 *  
+index_beduerfnis  -0.35220    0.09608 122.55786  -3.666 0.000366 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) hbt_lg
-habit_lag   -0.618       
-indx_bdrfns -0.698 -0.004</code></pre>
+habit_lag   -0.709       
+indx_bdrfns -0.495 -0.065</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_h1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_h1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.458
-     Marginal R2: 0.120</code></pre>
+  Conditional R2: 0.501
+     Marginal R2: 0.133</code></pre>
 </div>
 </div>
 <p><strong>Kurzinterpretation:</strong> Für H1 erwarten wir <span class="math inline">\(\beta\)</span> <code>habit_lag</code> &gt; 0 und p &lt; .05. Das ist erfüllt, daher können wir H1 annehmen.</p>
@@ -537,14 +718,14 @@ indx_bdrfns -0.698 -0.004</code></pre>
 <section id="h2a-h3a" class="level4">
 <h4 class="anchored" data-anchor-id="h2a-h3a">H2a &amp; H3a</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2a &amp; h3a</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>model_valence <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  f4_valenz <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> merged_dataset</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_valence)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2a &amp; h3a</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>model_valence <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  f4_valenz <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> merged_dataset</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_valence)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -552,38 +733,38 @@ Formula:
 f4_valenz ~ index_beduerfnis + index_habit + (1 | personalParticipantCode)
    Data: merged_dataset
 
-REML criterion at convergence: 942.9
+REML criterion at convergence: 945
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--3.2471 -0.5044 -0.0185  0.5615  2.6114 
+-3.2491 -0.5126 -0.0118  0.5383  2.7635 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.2582   0.5081  
- Residual                            0.8356   0.9141  
+ personalParticipantCode (Intercept) 0.2335   0.4832  
+ Residual                            0.8473   0.9205  
 Number of obs: 334, groups:  personalParticipantCode, 41
 
 Fixed effects:
                   Estimate Std. Error        df t value Pr(&gt;|t|)    
-(Intercept)        5.24285    0.31846 213.39214  16.463  &lt; 2e-16 ***
-index_beduerfnis   0.09721    0.06910 244.39748   1.407    0.161    
-index_habit       -0.26278    0.04492 321.61626  -5.849 1.21e-08 ***
+(Intercept)        5.66745    0.26717 183.76675  21.213  &lt; 2e-16 ***
+index_beduerfnis  -0.02639    0.05687 184.01557  -0.464    0.643    
+index_habit       -0.28018    0.04511 313.67155  -6.211 1.67e-09 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) indx_b
-indx_bdrfns -0.757       
-index_habit -0.704  0.184</code></pre>
+indx_bdrfns -0.634       
+index_habit -0.799  0.200</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_valence)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_valence)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.324
-     Marginal R2: 0.115</code></pre>
+  Conditional R2: 0.306
+     Marginal R2: 0.114</code></pre>
 </div>
 </div>
 <p><strong>Kurzinterpretation:</strong> Für H2a erwarten wir <span class="math inline">\(\beta\)</span> <code>index_beduerfnis</code> &gt; 0. Das ist erfüllt, aber nicht statistisch signifikant. Für H3a erwarten wir <span class="math inline">\(\beta\)</span> <code>index_habit</code> &lt; 0. Das ist erfüllt und auch signifikant.</p>
@@ -591,14 +772,14 @@ index_habit -0.704  0.184</code></pre>
 <section id="h2b-h3b" class="level4">
 <h4 class="anchored" data-anchor-id="h2b-h3b">H2b &amp; H3b</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2b &amp; h3b</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>model_arousal <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  f5_arousal <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> merged_dataset</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_arousal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2b &amp; h3b</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>model_arousal <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  f5_arousal <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> merged_dataset</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_arousal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -606,38 +787,38 @@ Formula:
 f5_arousal ~ index_beduerfnis + index_habit + (1 | personalParticipantCode)
    Data: merged_dataset
 
-REML criterion at convergence: 1101.4
+REML criterion at convergence: 1099.5
 
 Scaled residuals: 
      Min       1Q   Median       3Q      Max 
--2.86703 -0.61652  0.06491  0.59457  2.73898 
+-2.79371 -0.62538  0.04022  0.59612  2.66264 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.5464   0.7392  
- Residual                            1.3168   1.1475  
+ personalParticipantCode (Intercept) 0.5439   0.7375  
+ Residual                            1.3076   1.1435  
 Number of obs: 334, groups:  personalParticipantCode, 41
 
 Fixed effects:
                   Estimate Std. Error        df t value Pr(&gt;|t|)    
-(Intercept)        4.49869    0.41445 233.02022  10.855  &lt; 2e-16 ***
-index_beduerfnis   0.06011    0.08936 278.72305   0.673    0.502    
-index_habit       -0.28109    0.05733 328.42021  -4.903 1.49e-06 ***
+(Intercept)        4.33868    0.35123 203.40959  12.353  &lt; 2e-16 ***
+index_beduerfnis   0.12293    0.07449 234.92637   1.650      0.1    
+index_habit       -0.26787    0.05744 326.29530  -4.663 4.54e-06 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) indx_b
-indx_bdrfns -0.757       
-index_habit -0.698  0.193</code></pre>
+indx_bdrfns -0.640       
+index_habit -0.786  0.218</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_arousal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_arousal)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.346
-     Marginal R2: 0.075</code></pre>
+  Conditional R2: 0.353
+     Marginal R2: 0.083</code></pre>
 </div>
 </div>
 <p><strong>Kurzinterpretation:</strong> Für H2b erwarten wir <span class="math inline">\(\beta\)</span> <code>index_beduerfnis</code> &gt; 0. Das ist erfüllt, aber nicht statistisch signifikant. Für H3b erwarten wir <span class="math inline">\(\beta\)</span> <code>index_habit</code> &lt; 0. Das ist erfüllt und auch signifikant.</p>
@@ -648,17 +829,17 @@ index_habit -0.698  0.193</code></pre>
 <section id="instagram" class="level4">
 <h4 class="anchored" data-anchor-id="instagram">Instagram</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#filtere datensatz</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dataset_instagram <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span> </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(f3_nutzung_plattform <span class="sc">==</span> <span class="st">'Instagram (sog. "Reels")'</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#rechne Modell für H1</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>model_h1_instagram <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  index_habit <span class="sc">~</span> habit_lag <span class="sc">+</span> index_beduerfnis <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_instagram</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_h1_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#filtere datensatz</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>dataset_instagram <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(f3_nutzung_plattform <span class="sc">==</span> <span class="st">'Instagram (sog. "Reels")'</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co">#rechne Modell für H1</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>model_h1_instagram <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  index_habit <span class="sc">~</span> habit_lag <span class="sc">+</span> index_beduerfnis <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_instagram</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_h1_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -666,49 +847,49 @@ Formula:
 index_habit ~ habit_lag + index_beduerfnis + (1 | personalParticipantCode)
    Data: dataset_instagram
 
-REML criterion at convergence: 371.9
+REML criterion at convergence: 370.1
 
 Scaled residuals: 
      Min       1Q   Median       3Q      Max 
--2.54984 -0.51965  0.05392  0.51704  2.21792 
+-2.83054 -0.53030  0.00792  0.56471  2.16575 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.4851   0.6965  
- Residual                            1.0451   1.0223  
+ personalParticipantCode (Intercept) 0.5903   0.7683  
+ Residual                            0.9942   0.9971  
 Number of obs: 119, groups:  personalParticipantCode, 26
 
 Fixed effects:
                   Estimate Std. Error        df t value Pr(&gt;|t|)    
-(Intercept)        4.96905    0.59244 102.11107   8.387 2.91e-13 ***
-habit_lag          0.03323    0.08894 115.12331   0.374  0.70938    
-index_beduerfnis  -0.37891    0.12783  81.04602  -2.964  0.00398 ** 
+(Intercept)        4.78109    0.50933 105.44650   9.387 1.41e-15 ***
+habit_lag          0.01602    0.08778 113.71939   0.183  0.85550    
+index_beduerfnis  -0.36867    0.10551  79.60707  -3.494  0.00078 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) hbt_lg
-habit_lag   -0.658       
-indx_bdrfns -0.691  0.005</code></pre>
+habit_lag   -0.754       
+indx_bdrfns -0.542  0.004</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_h1_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_h1_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.390
-     Marginal R2: 0.107</code></pre>
+  Conditional R2: 0.466
+     Marginal R2: 0.148</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2a &amp; h3a</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>model_valence_instagram <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  f4_valenz <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_instagram</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_valence_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2a &amp; h3a</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>model_valence_instagram <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  f4_valenz <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_instagram</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_valence_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -716,49 +897,49 @@ Formula:
 f4_valenz ~ index_beduerfnis + index_habit + (1 | personalParticipantCode)
    Data: dataset_instagram
 
-REML criterion at convergence: 616
+REML criterion at convergence: 617.4
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--3.2323 -0.5198  0.0412  0.5866  2.1923 
+-3.2417 -0.5640  0.0386  0.5773  2.1418 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.2522   0.5022  
- Residual                            0.8355   0.9141  
+ personalParticipantCode (Intercept) 0.2411   0.4910  
+ Residual                            0.8437   0.9185  
 Number of obs: 217, groups:  personalParticipantCode, 34
 
 Fixed effects:
                   Estimate Std. Error        df t value Pr(&gt;|t|)    
-(Intercept)        5.15222    0.40426 128.79298  12.745  &lt; 2e-16 ***
-index_beduerfnis   0.08899    0.08261 140.43898   1.077    0.283    
-index_habit       -0.25497    0.05711 204.43379  -4.465 1.33e-05 ***
+(Intercept)        5.55891    0.35960 113.66333  15.459  &lt; 2e-16 ***
+index_beduerfnis  -0.01950    0.06990 100.98168  -0.279    0.781    
+index_habit       -0.27104    0.05812 199.67882  -4.663 5.69e-06 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) indx_b
-indx_bdrfns -0.766       
-index_habit -0.708  0.183</code></pre>
+indx_bdrfns -0.692       
+index_habit -0.804  0.253</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_valence_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_valence_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.313
-     Marginal R2: 0.106</code></pre>
+  Conditional R2: 0.302
+     Marginal R2: 0.102</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2b &amp; h3b</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>model_arousal_instagram <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  f5_arousal <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_instagram</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_arousal_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2b &amp; h3b</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>model_arousal_instagram <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  f5_arousal <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_instagram</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_arousal_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -766,55 +947,55 @@ Formula:
 f5_arousal ~ index_beduerfnis + index_habit + (1 | personalParticipantCode)
    Data: dataset_instagram
 
-REML criterion at convergence: 735.4
+REML criterion at convergence: 735
 
 Scaled residuals: 
      Min       1Q   Median       3Q      Max 
--2.78803 -0.61782  0.04949  0.58819  2.48639 
+-2.69259 -0.61735  0.04136  0.60174  2.52604 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.5681   0.7537  
- Residual                            1.4233   1.1930  
+ personalParticipantCode (Intercept) 0.5487   0.7407  
+ Residual                            1.4231   1.1929  
 Number of obs: 217, groups:  personalParticipantCode, 34
 
 Fixed effects:
                   Estimate Std. Error        df t value Pr(&gt;|t|)    
-(Intercept)        4.65550    0.54542 150.59708   8.536  1.4e-14 ***
-index_beduerfnis   0.06074    0.11109 169.92578   0.547 0.585227    
-index_habit       -0.29254    0.07582 211.56491  -3.858 0.000152 ***
+(Intercept)        4.53906    0.48548 134.18698   9.350 2.61e-16 ***
+index_beduerfnis   0.09722    0.09454 132.52580   1.028 0.305672    
+index_habit       -0.28034    0.07697 209.48470  -3.642 0.000341 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) indx_b
-indx_bdrfns -0.767       
-index_habit -0.703  0.190</code></pre>
+indx_bdrfns -0.696       
+index_habit -0.796  0.261</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_arousal_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_arousal_instagram)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.338
-     Marginal R2: 0.073</code></pre>
+  Conditional R2: 0.336
+     Marginal R2: 0.079</code></pre>
 </div>
 </div>
 </section>
 <section id="youtube" class="level4">
 <h4 class="anchored" data-anchor-id="youtube">YouTube</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#filtere datensatz</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>dataset_youtube <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span> </span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(f3_nutzung_plattform <span class="sc">==</span> <span class="st">'YouTube (sog. "Shorts")'</span>)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co">#rechne Modell für H1</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>model_h1_youtube <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  index_habit <span class="sc">~</span> habit_lag <span class="sc">+</span> index_beduerfnis <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_youtube</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_h1_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#filtere datensatz</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>dataset_youtube <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(f3_nutzung_plattform <span class="sc">==</span> <span class="st">'YouTube (sog. "Shorts")'</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co">#rechne Modell für H1</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>model_h1_youtube <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  index_habit <span class="sc">~</span> habit_lag <span class="sc">+</span> index_beduerfnis <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_youtube</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_h1_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -822,49 +1003,49 @@ Formula:
 index_habit ~ habit_lag + index_beduerfnis + (1 | personalParticipantCode)
    Data: dataset_youtube
 
-REML criterion at convergence: 60.4
+REML criterion at convergence: 60.1
 
 Scaled residuals: 
      Min       1Q   Median       3Q      Max 
--1.44157 -0.32862 -0.07425  0.36225  1.91272 
+-1.12752 -0.63651 -0.06139  0.42084  1.93077 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 1.9147   1.3837  
- Residual                            0.5888   0.7673  
+ personalParticipantCode (Intercept) 1.7508   1.3232  
+ Residual                            0.5851   0.7649  
 Number of obs: 20, groups:  personalParticipantCode, 8
 
 Fixed effects:
-                 Estimate Std. Error       df t value Pr(&gt;|t|)   
-(Intercept)       4.99004    1.34098 14.56069   3.721  0.00214 **
-habit_lag         0.06237    0.26806 12.02582   0.233  0.81994   
-index_beduerfnis -0.35500    0.34474 13.06968  -1.030  0.32181   
+                 Estimate Std. Error       df t value Pr(&gt;|t|)    
+(Intercept)       4.70459    1.14648 16.06839   4.104 0.000824 ***
+habit_lag         0.07873    0.26386 12.20817   0.298 0.770433    
+index_beduerfnis -0.38640    0.29029 15.35732  -1.331 0.202595    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) hbt_lg
-habit_lag   -0.547       
-indx_bdrfns -0.596 -0.225</code></pre>
+habit_lag   -0.725       
+indx_bdrfns -0.379 -0.191</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_h1_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_h1_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.772
-     Marginal R2: 0.031</code></pre>
+  Conditional R2: 0.764
+     Marginal R2: 0.056</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2a &amp; h3a</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>model_valence_youtube <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  f4_valenz <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_youtube</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_valence_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2a &amp; h3a</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>model_valence_youtube <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  f4_valenz <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_youtube</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_valence_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -872,49 +1053,49 @@ Formula:
 f4_valenz ~ index_beduerfnis + index_habit + (1 | personalParticipantCode)
    Data: dataset_youtube
 
-REML criterion at convergence: 123.4
+REML criterion at convergence: 124.5
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--1.8691 -0.6844 -0.1146  0.4793  2.3526 
+-1.8753 -0.6347 -0.1810  0.4911  2.1663 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.07969  0.2823  
- Residual                            0.78530  0.8862  
+ personalParticipantCode (Intercept) 0.1412   0.3758  
+ Residual                            0.7655   0.8750  
 Number of obs: 45, groups:  personalParticipantCode, 11
 
 Fixed effects:
-                 Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)        5.7126     0.8596 17.1429   6.646 3.96e-06 ***
-index_beduerfnis   0.1675     0.1734 22.1534   0.966   0.3445    
-index_habit       -0.3957     0.1217 25.8191  -3.251   0.0032 ** 
+                 Estimate Std. Error       df t value Pr(&gt;|t|)    
+(Intercept)       6.52898    0.71496 23.06274   9.132 4.02e-09 ***
+index_beduerfnis -0.05521    0.15033 31.62719  -0.367  0.71585    
+index_habit      -0.44614    0.12281 30.66590  -3.633  0.00101 ** 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) indx_b
-indx_bdrfns -0.792       
-index_habit -0.820  0.348</code></pre>
+indx_bdrfns -0.650       
+index_habit -0.878  0.299</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_valence_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_valence_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.336
-     Marginal R2: 0.269</code></pre>
+  Conditional R2: 0.370
+     Marginal R2: 0.253</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2b &amp; h3b</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>model_arousal_youtube <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  f5_arousal <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_youtube</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_arousal_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2b &amp; h3b</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>model_arousal_youtube <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  f5_arousal <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_youtube</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_arousal_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -922,55 +1103,55 @@ Formula:
 f5_arousal ~ index_beduerfnis + index_habit + (1 | personalParticipantCode)
    Data: dataset_youtube
 
-REML criterion at convergence: 130.3
+REML criterion at convergence: 130.6
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--1.7441 -0.5798 -0.1493  0.4962  2.0679 
+-1.7428 -0.5778 -0.1499  0.4947  2.0685 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.9150   0.9565  
- Residual                            0.6787   0.8238  
+ personalParticipantCode (Intercept) 0.9089   0.9534  
+ Residual                            0.6798   0.8245  
 Number of obs: 45, groups:  personalParticipantCode, 11
 
 Fixed effects:
                  Estimate Std. Error       df t value Pr(&gt;|t|)    
-(Intercept)       4.19506    1.08320 41.21505   3.873 0.000377 ***
-index_beduerfnis  0.01984    0.20161 40.60524   0.098 0.922094    
-index_habit      -0.23433    0.14552 41.99972  -1.610 0.114813    
+(Intercept)       4.24652    0.87204 39.56332   4.870 1.83e-05 ***
+index_beduerfnis  0.01035    0.16882 41.22677   0.061    0.951    
+index_habit      -0.23770    0.14152 41.99925  -1.680    0.100    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) indx_b
-indx_bdrfns -0.800       
-index_habit -0.820  0.443</code></pre>
+indx_bdrfns -0.668       
+index_habit -0.853  0.387</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_arousal_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_arousal_youtube)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.597
-     Marginal R2: 0.054</code></pre>
+  Conditional R2: 0.595
+     Marginal R2: 0.055</code></pre>
 </div>
 </div>
 </section>
 <section id="tiktok" class="level4">
 <h4 class="anchored" data-anchor-id="tiktok">TikTok</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#filtere datensatz</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>dataset_tiktok <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span> </span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(f3_nutzung_plattform <span class="sc">==</span> <span class="st">'TikTok'</span>)</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="co">#rechne Modell für H1</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>model_h1_tiktok <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  index_habit <span class="sc">~</span> habit_lag <span class="sc">+</span> index_beduerfnis <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_tiktok</span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_h1_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#filtere datensatz</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>dataset_tiktok <span class="ot">&lt;-</span> merged_dataset <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(f3_nutzung_plattform <span class="sc">==</span> <span class="st">'TikTok'</span>)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co">#rechne Modell für H1</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>model_h1_tiktok <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  index_habit <span class="sc">~</span> habit_lag <span class="sc">+</span> index_beduerfnis <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_tiktok</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_h1_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -978,49 +1159,49 @@ Formula:
 index_habit ~ habit_lag + index_beduerfnis + (1 | personalParticipantCode)
    Data: dataset_tiktok
 
-REML criterion at convergence: 120
+REML criterion at convergence: 119.8
 
 Scaled residuals: 
      Min       1Q   Median       3Q      Max 
--1.61591 -0.71103 -0.08591  0.70853  1.94767 
+-1.68778 -0.69169 -0.06683  0.70031  1.96556 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.6981   0.8355  
- Residual                            0.9719   0.9859  
+ personalParticipantCode (Intercept) 0.6333   0.7958  
+ Residual                            0.9742   0.9870  
 Number of obs: 39, groups:  personalParticipantCode, 8
 
 Fixed effects:
-                 Estimate Std. Error       df t value Pr(&gt;|t|)    
-(Intercept)       1.59232    1.15456 29.29633   1.379 0.178286    
-habit_lag         0.52995    0.13404 33.78069   3.954 0.000373 ***
-index_beduerfnis  0.03337    0.35461 29.66093   0.094 0.925665    
+                 Estimate Std. Error      df t value Pr(&gt;|t|)    
+(Intercept)        1.3718     0.7466 23.5629   1.837 0.078809 .  
+habit_lag          0.5371     0.1256 34.6126   4.275 0.000142 ***
+index_beduerfnis   0.1990     0.3224 22.0991   0.617 0.543376    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) hbt_lg
-habit_lag   -0.666       
-indx_bdrfns -0.871  0.353</code></pre>
+habit_lag   -0.652       
+indx_bdrfns -0.661  0.092</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_h1_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_h1_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.566
-     Marginal R2: 0.253</code></pre>
+  Conditional R2: 0.557
+     Marginal R2: 0.269</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2a &amp; h3a</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>model_valence_tiktok <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  f4_valenz <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_tiktok</span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_valence_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2a &amp; h3a</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>model_valence_tiktok <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  f4_valenz <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_tiktok</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_valence_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -1028,49 +1209,49 @@ Formula:
 f4_valenz ~ index_beduerfnis + index_habit + (1 | personalParticipantCode)
    Data: dataset_tiktok
 
-REML criterion at convergence: 207.7
+REML criterion at convergence: 208
 
 Scaled residuals: 
      Min       1Q   Median       3Q      Max 
--2.89515 -0.43246  0.01542  0.38186  2.61325 
+-2.89640 -0.45124  0.00343  0.32647  2.91819 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 0.7866   0.8869  
- Residual                            0.7664   0.8754  
+ personalParticipantCode (Intercept) 0.6901   0.8307  
+ Residual                            0.7792   0.8827  
 Number of obs: 72, groups:  personalParticipantCode, 12
 
 Fixed effects:
                  Estimate Std. Error       df t value Pr(&gt;|t|)    
-(Intercept)       4.91251    0.70185 52.81615   6.999  4.6e-09 ***
-index_beduerfnis  0.08702    0.20987 64.09796   0.415    0.680    
-index_habit      -0.11756    0.08689 67.25971  -1.353    0.181    
+(Intercept)       5.30132    0.51104 38.80465  10.374 9.52e-13 ***
+index_beduerfnis -0.08637    0.17712 54.51514  -0.488    0.628    
+index_habit      -0.11867    0.08726 67.75289  -1.360    0.178    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) indx_b
-indx_bdrfns -0.788       
-index_habit -0.438 -0.021</code></pre>
+indx_bdrfns -0.560       
+index_habit -0.593 -0.057</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_valence_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_valence_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.518
-     Marginal R2: 0.023</code></pre>
+  Conditional R2: 0.483
+     Marginal R2: 0.024</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2b &amp; h3b</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>model_arousal_tiktok <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  f5_arousal <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_tiktok</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_arousal_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co">#h2b &amp; h3b</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>model_arousal_tiktok <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  f5_arousal <span class="sc">~</span> index_beduerfnis <span class="sc">+</span> index_habit <span class="sc">+</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> personalParticipantCode),</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dataset_tiktok</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_arousal_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
@@ -1078,38 +1259,38 @@ Formula:
 f5_arousal ~ index_beduerfnis + index_habit + (1 | personalParticipantCode)
    Data: dataset_tiktok
 
-REML criterion at convergence: 231.4
+REML criterion at convergence: 233.8
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--2.4524 -0.4431  0.1140  0.5636  2.7885 
+-2.4037 -0.5490  0.0892  0.5416  2.6914 
 
 Random effects:
  Groups                  Name        Variance Std.Dev.
- personalParticipantCode (Intercept) 1.305    1.142   
- Residual                            1.057    1.028   
+ personalParticipantCode (Intercept) 1.229    1.109   
+ Residual                            1.103    1.050   
 Number of obs: 72, groups:  personalParticipantCode, 12
 
 Fixed effects:
-                 Estimate Std. Error      df t value Pr(&gt;|t|)    
-(Intercept)        5.2271     0.8460 54.2165   6.178 8.69e-08 ***
-index_beduerfnis  -0.3797     0.2508 66.4173  -1.514   0.1349    
-index_habit       -0.2043     0.1027 66.7244  -1.990   0.0507 .  
+                 Estimate Std. Error       df t value Pr(&gt;|t|)    
+(Intercept)       4.34918    0.63427 40.89660   6.857 2.66e-08 ***
+index_beduerfnis -0.07089    0.21685 60.12399  -0.327   0.7449    
+index_habit      -0.20817    0.10471 67.16943  -1.988   0.0509 .  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) indx_b
-indx_bdrfns -0.782       
-index_habit -0.424 -0.027</code></pre>
+indx_bdrfns -0.556       
+index_habit -0.571 -0.059</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_arousal_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R-Quadrat</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(model_arousal_tiktok)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># R2 for Mixed Models
 
-  Conditional R2: 0.580
-     Marginal R2: 0.060</code></pre>
+  Conditional R2: 0.546
+     Marginal R2: 0.040</code></pre>
 </div>
 </div>
 </section>

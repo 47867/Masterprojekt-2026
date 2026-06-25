@@ -325,6 +325,69 @@ merged_dataset <- merged_dataset %>%
   )
 ```
 
+Berechne Cronbach's Alpha:
+
+```{r}
+
+cronbach_habit <- psych::alpha(
+  select(
+    merged_dataset,
+    starts_with(
+      "f6_habit"
+    )
+  )
+)
+
+cronbach_beduerfnis <- psych::alpha(
+  select(
+    merged_dataset,
+    starts_with(
+      "f7_beduerfnis"
+    )
+  )
+)
+
+cronbach_habit
+cronbach_beduerfnis
+```
+
+Entferne f6_unterhaltung aus dem Index um interne Konsistenz zu erhöhen:
+
+```{r}
+#index bedürfnis reduziert
+merged_dataset <- merged_dataset %>% 
+  mutate(
+    index_beduerfnis = rowMeans(
+      across(
+        all_of(
+          c(
+            "f7_beduerfnis_information",
+            "f7_beduerfnis_sozial",
+            "f7_beduerfnis_selbstausdruck"
+          )
+        )
+      ),
+      na.rm = TRUE
+    )
+  )
+
+#berechne cronbach's alpha erneut um sicher zu gehen
+cronbach_beduerfnis_reduziert <- psych::alpha(
+  select(
+    merged_dataset,
+    all_of(
+      c(
+        "f7_beduerfnis_information",
+        "f7_beduerfnis_sozial",
+        "f7_beduerfnis_selbstausdruck"
+      )
+    )
+    )
+)
+
+cronbach_beduerfnis_reduziert
+```
+
 ## Auswertung
 
 ### Sozio
