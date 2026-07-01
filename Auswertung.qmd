@@ -54,10 +54,10 @@ Lese Dateien:
 ```{r}
 
 #lese datensatz
-socio_raw <- read_appkit_survey("Soziodemographie/24_Juni_2026/")
-vormittag_raw <- read_appkit_survey("Vormittag/24_Juni_2026/")
-nachmittag_raw <- read_appkit_survey("Nachmittag/24_Juni_2026/")
-abend_raw <- read_appkit_survey("Abend/24_Juni_2026/")
+socio_raw <- read_appkit_survey("Soziodemographie/1_Juli_2026/")
+vormittag_raw <- read_appkit_survey("Vormittag/1_Juli_2026/")
+nachmittag_raw <- read_appkit_survey("Nachmittag/1_Juli_2026/")
+abend_raw <- read_appkit_survey("Abend/1_Juli_2026/")
 ```
 
 Um später die Reihenfolge der einzelnen Befragungen eindeutig bestimmen zu können, berechnen wir eine `reihenfolge_id`. Diese ID wird anhand der Abbildung *f* beschrieben, die ein *x* und ein *a* innerhalb der natürlichen Zahlen abbildet. Dabei ist *x* der Tag und *a* die Tageszeit.
@@ -447,7 +447,7 @@ summary(model_h1)
 r2(model_h1)
 ```
 
-**Kurzinterpretation:** Für H1 erwarten wir $\beta$ `habit_lag` \> 0 und p \< .05. Das ist erfüllt, daher können wir H1 annehmen.
+**Kurzinterpretation:** Für H1 erwarten wir $\beta$ `habit_lag` \> 0 und p \< .05. Das ist erfüllt. Gleichzeitig ist aber $\beta$ `index_beduerfnis` \< 0 und p \< .05. Da wir in H1 davon ausgehen, dass der Prädiktor unabhängig von Bedürfnissen ist, können wir H1 nicht annehmen, obwohl das $\beta$ in die richtige richtung geht und signifikant ist.
 
 #### H2a & H3a
 
@@ -465,7 +465,7 @@ summary(model_valence)
 r2(model_valence)
 ```
 
-**Kurzinterpretation:** Für H2a erwarten wir $\beta$ `index_beduerfnis` \> 0. Das ist erfüllt, aber nicht statistisch signifikant. Für H3a erwarten wir $\beta$ `index_habit` \< 0. Das ist erfüllt und auch signifikant.
+**Kurzinterpretation:** Für H2a erwarten wir $\beta$ `index_beduerfnis` \> 0. Das ist nicht erfüllt und nicht statistisch signifikant. Für H3a erwarten wir $\beta$ `index_habit` \< 0. Das ist erfüllt und auch signifikant.
 
 #### H2b & H3b
 
